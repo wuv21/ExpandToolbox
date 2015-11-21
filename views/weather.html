@@ -2,30 +2,40 @@
     <div class="intro text-center">
         <h1>Good {{timeOfDay}}, Vincent</h1>
         <p>Happy {{dayOfWeek}}! The weather is currently {{currentWeather.description}} and it's {{currentWeather.currentTemp}}&deg; F outside in {{currentWeather.city}}, {{currentWeather.country}}.</p>
-    </div>
 
     <ul class="nav nav-tabs nav-justified">
         <li role="presentation" class="active"><a href="#">All</a></li>
-        <li role="presentation"><a href="#">Forecast</a></li>
+        <li role="presentation"><a ui-sref="forecast()">Forecast</a></li>
         <li role="presentation"><a href="#">Current</a></li>
     </ul>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 text-center">
             <h2>Wind radar (meters/sec)</h2>
             <p class="text-center">North</p>
             <canvas id="polar-area" class="chart chart-polar-area"
                     chart-data="wind" chart-labels="labels">
             </canvas>
         </div>
-        <div class="col-md-6">
+        <div class="current col-md-6 text-center">
             <h2>What's going on outside?</h2>
-            <p class="test basecloud"></p>
-            <p class="test icon-showers icon-sunny"></p>
+            <div>
+                <table class="table">
+                    <tr>
+                        <td class="text-right"><i class="wi wi-fw wi-thermometer" alt="currentTemperature"></i></td>
+                        <td class="text-left"><p>{{currentWeather.currentTemp}}&deg; F</p></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"><i class="wi wi-fw wi-sunrise" alt="currentSunrise"></i></td>
+                        <td class="text-left"><p>{{currentWeather.sunrise | date: 'medium'}}</p></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"><i class="wi wi-fw wi-sunset" alt="currentSunset"></i></td>
+                        <td class="text-left"><p>{{currentWeather.sunset | date: 'medium'}}</p></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-
-
-
 </div>
 

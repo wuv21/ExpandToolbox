@@ -1,21 +1,10 @@
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
-
-
-@font-face {
-    font-family: "iconvault";
-    src: url("../forecastFont/iconvault_forecastfont.eot");
-    src: url("../forecastFont/iconvault_forecastfont.eot?#iefix") format("embedded-opentype"),
-    url("../forecastFont/iconvault_forecastfont.woff") format("woff"),
-    url("../forecastFont/iconvault_forecastfont.ttf") format("truetype"),
-    url("../forecastFont/iconvault_forecastfont.svg#iconvault") format("svg");
-    font-weight: normal;
-    font-style: normal;
-}
+@import url("weather-icons.min.css");
 
 body {
-    font-family: iconvault, "Open Sans", Helvetica, sans-serif;
+    font-family: "Open Sans", Helvetica, sans-serif;
     font-size: 16px;
 }
 
@@ -37,36 +26,19 @@ h1 {
     margin-right: auto;
 }
 
-/*just sun*/
-.icon-sun::after {
-    content: "\f113";
-    color: rgb(255, 165, 0);
-    position: absolute;
+.wi {
+    font-size: 2em;
+    color: #aaa;
 }
 
-/*base cloud*/
-.basecloud {
-    font-family: 'iconvault';
-    font-size:6em;
-    content: '\f105';
-    position:absolute;
-    color: rgb(74, 74, 74);
+.wi-day-sunny, .wi-sunrise, .wi-sunset {
+    color: #ffA500;
 }
 
-/*showers before */
-.icon-showers::before  {
-    content: "\f104";
-    position:absolute;
-    color:#82b2e4;
+.current .row {
+    margin-bottom: 1em;
 }
 
-/*sun after*/
-.icon-sunny::after {
-    content: "\f101";
-    color: rgb(255, 165, 0);
-    position: absolute;
-}
-
-.test {
-    font-size: 80px;
+.current table {
+    border-color: red;
 }

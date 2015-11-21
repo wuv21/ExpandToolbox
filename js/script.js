@@ -1,4 +1,5 @@
 angular.module('WeatherApp', ['ui.router', 'chart.js'])
+    .constant('openWeatherAPIkey', 'd59ca5993b82edf6497969631e4cabc4')
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('welcome', {
@@ -10,6 +11,11 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
                 url: '/weather',
                 templateUrl: 'views/weather.html',
                 controller: 'WeatherController'
+            })
+            .state('forecast', {
+                url: '/forecast',
+                templateUrl: 'views/forecast.html',
+                controller: 'WeatherController'
             });
 
         $urlRouterProvider.otherwise('/welcome');
@@ -20,7 +26,7 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
     .controller('WelcomeController', function($scope) {
         $scope.user = {};
     })
-    .controller('WeatherController', function($scope, $http) {
+    .controller('WeatherController', function($scope, $http, openWeatherAPIkey) {
         $scope.user = {name: '', location: ''};
 
         // Personalized date and greeting
@@ -49,13 +55,29 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
         //});
 
         // Get weather data based on city
-        $http.get("http://api.openweathermap.org/data/2.5/weather?id=2172797&appid=2de143494c0b295cca9337e1e96b00e0")
+        $http.get("http://api.openweathermap.org/data/2.5/weather?id=5809844&appid=" + openWeatherAPIkey)
             .success(function(response) {
                 $scope.currentWeather = {description: response.weather[0].description.toLowerCase() || "___",
                                         currentTemp: (response.main.temp * (9/5) - 459.67).toFixed(1) || "___",
                                         city: response.name || "___",
                                         country: response.sys.country || "___",
-                                        wind: $scope.wind[Math.round(response.wind.deg / 10)] = response.wind.speed};
+                                        wind: $scope.wind[Math.round(response.wind.deg / 10)] = response.wind.speed,
+                                        sunrise: new Date(response.sys.sunrise * 1000),
+                                        sunset: new Date(response.sys.sunset * 1000)};
 
         });
+
+        // Get weather forecast
+        $http.get("http://api.openweathermap.org/data/2.5/forecast?id=5809844&appid=" + openWeatherAPIkey)
+            .success(function(response) {
+                var forecast = response.list;
+                console.log(forecast);
+                $scope.forecastLabels = _.pluck(forecast, 'dt').map(function(x) {
+                    var date = new Date(x * 1000);
+
+                });
+                $scope.forecastSeries = ['high'];
+                $scope.forecastData = [_.pluck(forecast, 'main.temp')];
+                console.log($scope.forecastData);
+            });
     });
