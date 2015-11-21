@@ -10,3 +10,17 @@ body {
 h1, h2 {
     font-weight: 300;
 }
+
+h1 {
+    font-size: 44px;
+}
+
+.intro {
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+.nav {
+    margin-left: auto;
+    margin-right: auto;
+}

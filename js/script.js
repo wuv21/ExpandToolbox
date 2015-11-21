@@ -17,9 +17,23 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
     .controller('WelcomeController', function($scope) {
         $scope.user = {};
     })
-    .controller('WeatherController', function($scope) {
+    .controller('WeatherController', function($scope, $http) {
         $scope.user = {name: '', location: ''};
 
+        var date = new Date();
+        var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        $scope.timeOfDay = 'day';
+        var hour = date.getHours();
+        if (hour < 12) {
+            $scope.timeOfDay = 'morning';
+        } else if (hour < 18) {
+            $scope.timeOfDay = 'afternoon';
+        } else if (hour < 24) {
+            $scope.timeOfDay = 'evening';
+        }
+
+        $scope.dayOfWeek = daysOfWeek[date.getDay()];
 
         $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
         $scope.series = ['Series A', 'Series B'];
@@ -28,5 +42,8 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
             [28, 48, 40, 19, 86, 27, 90]
         ];
 
-
+        $http.get("http://api.openweathermap.org/data/2.5/weather?id=2172797&appid=2de143494c0b295cca9337e1e96b00e0")
+            .success(function(response) {
+                console.log(response);
+            })
     });

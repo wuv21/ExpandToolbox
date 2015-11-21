@@ -28,8 +28,9 @@ body {
 }
 
 .container h1 {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 300;
+    margin-bottom: 1em;
 }
 
 .container p {
