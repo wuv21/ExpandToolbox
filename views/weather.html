@@ -1,7 +1,7 @@
 <div class="container">
     <div class="intro text-center">
         <h1>Good {{timeOfDay}}, Vincent</h1>
-        <p>Happy {{dayOfWeek}}! It's currently __&deg; F outside.</p>
+        <p>Happy {{dayOfWeek}}! The weather is currently {{currentWeather.description}} and it's {{currentWeather.currentTemp}}&deg; F outside in {{currentWeather.city}}, {{currentWeather.country}}.</p>
     </div>
 
     <ul class="nav nav-tabs nav-justified">
@@ -11,13 +11,17 @@
     </ul>
 
     <div class="row">
-        <div class="col-md-8">
-            <h2>Stuff</h2>
-            <canvas id="test" class="chart chart-bar" chart-data="data" chart-labels="labels"></canvas>
+        <div class="col-md-6">
+            <h2>Wind radar (meters/sec)</h2>
+            <p class="text-center">North</p>
+            <canvas id="polar-area" class="chart chart-polar-area"
+                    chart-data="wind" chart-labels="labels">
+            </canvas>
         </div>
-        <div class="col-md-4">
-            <h2>Other stuff</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad autem deleniti facilis ipsam labore, minima porro quas temporibus unde? Architecto autem cum eligendi et id necessitatibus pariatur rem sunt!</p>
+        <div class="col-md-6">
+            <h2>What's going on outside?</h2>
+            <p class="test basecloud"></p>
+            <p class="test icon-showers icon-sunny"></p>
         </div>
     </div>
 
