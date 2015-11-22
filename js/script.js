@@ -1,5 +1,10 @@
 angular.module('WeatherApp', ['ui.router', 'chart.js'])
     .constant('openWeatherAPIkey', 'd59ca5993b82edf6497969631e4cabc4')
+    .service('userInfo', function() {
+        var user = {};
+
+        return user;
+    })
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('welcome', {
@@ -25,14 +30,15 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
 
         $urlRouterProvider.otherwise('/welcome');
     })
-    .factory('currentWeatherReport', function($http) {
-        return $http.get("http://api.openweathermap.org/data/2.5/weather?id=2172797&appid=2de143494c0b295cca9337e1e96b00e0");
+    .controller('WelcomeController', function($scope, userInfo) {
+        $scope.user = userInfo;
     })
-    .controller('WelcomeController', function($scope) {
-        $scope.user = {};
-    })
-    .controller('WeatherController', function($scope, $http, openWeatherAPIkey) {
-        $scope.user = {name: '', location: ''};
+    .controller('WeatherController', function($scope, $http, openWeatherAPIkey, userInfo, $state) {
+        // Get user inputted info
+        $scope.user = userInfo;
+        if (!$scope.user.name) {
+            $state.go('welcome');
+        }
 
         // Personalized date and greeting
         var date = new Date();
@@ -61,19 +67,24 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
         }
 
         // Get weather data based on city
-        $http.get("http://api.openweathermap.org/data/2.5/weather?id=5809844&appid=" + openWeatherAPIkey)
-            .success(function(response) {
-                $scope.currentWeather = {description: response.weather[0].description.toLowerCase() || "___",
-                                        id: response.weather[0].id,
-                                        currentTemp: convertKtoF(response.main.temp) || "___",
-                                        city: response.name || "___",
-                                        country: response.sys.country || "___",
-                                        wind: $scope.wind[Math.round(response.wind.deg / 10)] = response.wind.speed,
-                                        sunrise: new Date(response.sys.sunrise * 1000),
-                                        sunset: new Date(response.sys.sunset * 1000),
-                                        humidity: response.main.humidity,
-                                        pressure: response.main.pressure};
+        $http.get("http://api.openweathermap.org/data/2.5/weather?q=" + $scope.user.location + "&appid=" + openWeatherAPIkey)
+            .then(function(response) {
+                response = response.data;
 
+                if (response.cod === '404') {
+                    console.log(response.message);
+                } else {
+                    $scope.currentWeather = {description: response.weather[0].description.toLowerCase() || "___",
+                        id: response.weather[0].id,
+                        currentTemp: convertKtoF(response.main.temp) || "___",
+                        city: response.name || "___",
+                        country: response.sys.country || "___",
+                        wind: $scope.wind[Math.round(response.wind.deg / 10)] = response.wind.speed,
+                        sunrise: new Date(response.sys.sunrise * 1000),
+                        sunset: new Date(response.sys.sunset * 1000),
+                        humidity: response.main.humidity,
+                        pressure: response.main.pressure};
+                }
         });
 
         // Get weather forecast
@@ -104,7 +115,7 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
                 // Mine description data from API response.
                 var forecastDesc = _.pluck(forecast, 'weather[0].id');
 
-                //Format dates for the weather panel
+                // Format dates for the weather panel
                 $scope.forecastWeatherDates = _.map(dates, function(x) {return new Date(x * 1000)});
                 $scope.forecastWeather = [];
 
@@ -114,8 +125,13 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
                                                 id: forecastDesc[idx]});
                 }
 
+                // Mine humidity data
                 $scope.forecastHumidity = [_.pluck(forecast, 'humidity').slice(0,4)];
+
+                // Mine pressure data
                 $scope.forecastPressure = [_.pluck(forecast, 'pressure').slice(0,4)];
+
+                // Modified labels since humidity & pressure have fewer predicted dates
                 $scope.forecastLabelsSlice = _.slice($scope.forecastLabels, 0, 4);
             });
     });

@@ -21,9 +21,9 @@ h2 {
     margin-bottom: 1em;
 }
 
-a {
-    margin: 0;
-    padding: 0;
+.back {
+    margin: 1em;
+    position: absolute;
 }
 
 .intro {

@@ -1,6 +1,7 @@
+<a class="back btn btn-default" ui-sref="welcome()">Back</a>
 <div class="container">
     <div class="intro text-center">
-        <h1>Good {{timeOfDay}}, Vincent</h1>
+        <h1>Good {{timeOfDay}}, {{user.name}}</h1>
         <p>Happy {{dayOfWeek}}! Currently {{currentWeather.currentTemp}} &deg;F
             and {{currentWeather.description}} in {{currentWeather.city}}, {{currentWeather.country}}.</p>
 

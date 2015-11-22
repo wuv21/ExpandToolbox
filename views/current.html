@@ -6,6 +6,8 @@
                 chart-data="wind" chart-labels="labels">
         </canvas>
     </div>
+
+    <!--TODO let the weather pane go on top on small screens-->
     <div class="current col-md-6 text-center">
         <h2>What's going on outside?</h2>
 
@@ -16,7 +18,7 @@
             </div>
 
             <div class="col-xs-4">
-                <span title="Weather"><i class="wi wi-fw wi-owm-{{currentWeather.id}}"></i></span>
+                <span title="Weather"><i class="wi wi-fw wi-owm-{{currentWeather.id}}" alt="currentWeather"></i></span>
                 <p>{{currentWeather.description}}</p>
             </div>
 

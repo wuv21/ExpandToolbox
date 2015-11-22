@@ -4,14 +4,23 @@
 <div class="container">
     <h1>Welcome to forecast</h1>
 
-    <label for="name">Name:</label>
-    <input type="text" class="form-control" placeholder="Please enter your name" id="name" ng-model="user.name" required>
+    <form class="form" name="searchForm" ng-model="user" novalidate>
+        <label for="nameInp">Name:</label>
+        <input type="text" class="form-control" placeholder="Please enter your name" id="nameInp" name="nameInp" ng-model="user.name" required/>
+        <p class="validation-error" ng-if="searchForm.nameInp.$dirty && searchForm.nameInp.$error.required" id="nameInpAlert">
+            Name is required.
+        </p>
 
-    <label for="location">Location:</label>
-    <input type="text" class="form-control" placeholder="Please enter your location" id="location" ng-model="user.location" required>
+        <label for="locationInp">Location:</label>
+        <input type="text" class="form-control" placeholder="Please enter your location" id="locationInp" name="locationInp" ng-model="user.location" required/>
+        <p class="validation-error" ng-if="searchForm.locationInp.$dirty && searchForm.locationInp.$error.required" id="locationInpAlert">
+            Location is required.
+        </p>
+
+        <hr/>
+        <button type="submit" ui-sref="weather.current()" class="btn btn-primary btn-lg" ng-disabled="searchForm.$invalid">View weather</button>
+    </form>
+
 
     <!--TODO try autocomplete of cities-->
-
-    <hr/>
-    <p ui-sref="weather.current()" class="btn btn-primary btn-lg">View</p>
 </div>
