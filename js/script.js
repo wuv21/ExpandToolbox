@@ -12,7 +12,12 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
                 templateUrl: 'views/weather.html',
                 controller: 'WeatherController'
             })
-            .state('forecast', {
+            .state('weather.current', {
+                url: '/current',
+                templateUrl: 'views/current.html',
+                controller: 'WeatherController'
+            })
+            .state('weather.forecast', {
                 url: '/forecast',
                 templateUrl: 'views/forecast.html',
                 controller: 'WeatherController'
@@ -34,12 +39,14 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
         $scope.daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
         $scope.timeOfDay = 'day';
-        var hour = date.getHours();
-        if (hour < 12) {
+        $scope.hour = date.getHours();
+        $scope.isEvening = false;
+        if ($scope.hour < 12) {
             $scope.timeOfDay = 'morning';
-        } else if (hour < 18) {
+        } else if ($scope.hour < 18) {
             $scope.timeOfDay = 'afternoon';
-        } else if (hour < 24) {
+            $scope.isEvening = true;
+        } else if ($scope.hour < 24) {
             $scope.timeOfDay = 'evening';
         }
 
@@ -57,12 +64,15 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
         $http.get("http://api.openweathermap.org/data/2.5/weather?id=5809844&appid=" + openWeatherAPIkey)
             .success(function(response) {
                 $scope.currentWeather = {description: response.weather[0].description.toLowerCase() || "___",
+                                        id: response.weather[0].id,
                                         currentTemp: convertKtoF(response.main.temp) || "___",
                                         city: response.name || "___",
                                         country: response.sys.country || "___",
                                         wind: $scope.wind[Math.round(response.wind.deg / 10)] = response.wind.speed,
                                         sunrise: new Date(response.sys.sunrise * 1000),
-                                        sunset: new Date(response.sys.sunset * 1000)};
+                                        sunset: new Date(response.sys.sunset * 1000),
+                                        humidity: response.main.humidity,
+                                        pressure: response.main.pressure};
 
         });
 
@@ -70,16 +80,42 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
         $http.get("http://api.openweathermap.org/data/2.5/forecast/daily?id=5809844&appid=" + openWeatherAPIkey)
             .success(function(response) {
                 var forecast = response.list;
-                console.log(forecast);
-                $scope.forecastLabels = _.pluck(forecast, 'dt').map(function(x) {
+
+                // Get dates of days that are in forecast
+                var dates = _.pluck(forecast, 'dt');
+
+                // Format dates for the graph
+                $scope.forecastLabels = _.map(dates, function(x) {
                     var date = new Date(x * 1000);
 
-                    // format: Monday, 11-13
                     return date.toDateString();
                 });
+
+                // Series for high and low temperatures for each day
                 $scope.forecastSeries = ['high', 'low'];
+
+                // Mine temperature data from API response. Collects high and low temperatures for each day.
                 $scope.forecastData = [_.pluck(forecast, 'temp.max').map(convertKtoF),
                                         _.pluck(forecast, 'temp.min').map(convertKtoF)];
+
+                // Graph colors
                 $scope.forecastColors = ['#E74C3C', '#3498DB'];
+
+                // Mine description data from API response.
+                var forecastDesc = _.pluck(forecast, 'weather[0].id');
+
+                //Format dates for the weather panel
+                $scope.forecastWeatherDates = _.map(dates, function(x) {return new Date(x * 1000)});
+                $scope.forecastWeather = [];
+
+                var idx;
+                for(idx = 0; idx < $scope.forecastLabels.length; idx++) {
+                    $scope.forecastWeather.push({date: $scope.forecastWeatherDates[idx],
+                                                id: forecastDesc[idx]});
+                }
+
+                $scope.forecastHumidity = [_.pluck(forecast, 'humidity').slice(0,4)];
+                $scope.forecastPressure = [_.pluck(forecast, 'pressure').slice(0,4)];
+                $scope.forecastLabelsSlice = _.slice($scope.forecastLabels, 0, 4);
             });
     });

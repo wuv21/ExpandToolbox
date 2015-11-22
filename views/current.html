@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-6 text-center">
+        <h2>Wind radar (meters/sec)</h2>
+        <p class="text-center">North</p>
+        <canvas id="polar-area" class="chart chart-polar-area"
+                chart-data="wind" chart-labels="labels">
+        </canvas>
+    </div>
+    <div class="current col-md-6 text-center">
+        <h2>What's going on outside?</h2>
+
+        <div class="row">
+            <div class="col-xs-4">
+                <span title="Temperature"><i class="wi wi-fw wi-thermometer" alt="currentTemperature"></i></span>
+                <p>{{currentWeather.currentTemp}} &deg;F</p>
+            </div>
+
+            <div class="col-xs-4">
+                <span title="Weather"><i class="wi wi-fw wi-owm-{{currentWeather.id}}"></i></span>
+                <p>{{currentWeather.description}}</p>
+            </div>
+
+            <div class="col-xs-4">
+                <span title="Humidity"><i class="wi wi-fw wi-humidity" alt="currentHumidity"></i></span>
+                <p>{{currentWeather.humidity}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-4">
+                <span title="Sunrise (local time)"><i class="wi wi-fw wi-sunrise" alt="currentSunrise"></i></span>
+                <p>{{currentWeather.sunrise | date: 'EEE, MMM dd hh:mm a'}}</p>
+            </div>
+
+            <div class="col-xs-4">
+                <span title="Sunset (local time)"><i class="wi wi-fw wi-sunset" alt="currentSunset"></i></span>
+                <p>{{currentWeather.sunset | date: 'EEE, MMM dd hh:mm a'}}</p>
+            </div>
+
+            <div class="col-xs-4">
+                <span title="Pressure"><i class="wi wi-fw wi-barometer" alt="currentPressure"></i></span>
+                <p>{{currentWeather.pressure}} hPa</p>
+            </div>
+        </div>
+    </div>
+</div>

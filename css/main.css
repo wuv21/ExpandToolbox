@@ -17,19 +17,29 @@ h1 {
     font-size: 44px;
 }
 
+h2 {
+    margin-bottom: 1em;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+}
+
 .intro {
     margin-top: 3em;
     margin-bottom: 3em;
 }
 
 .nav {
+    margin-top: 2em;
     margin-left: auto;
     margin-right: auto;
 }
 
 .wi {
     font-size: 2em;
-    color: #aaa;
+    color: #193441;
 }
 
 .wi-day-sunny, .wi-sunrise, .wi-sunset {
@@ -57,4 +67,21 @@ p .high,.low {
 .low {
     margin-left: 1em;
     background-color: rgba(52, 152, 219, 0.5);
+}
+
+.options {
+    margin-bottom: 1em;
+}
+
+.forecast-day {
+    padding: 0.75em;
+    padding-bottom: 0.4em;
+    /*margin: 0.5em;*/
+    border: 5px solid #FFF;
+    background-color: #91AA9D;
+}
+
+.forecast-day i {
+    color: #FFF;
+    margin-bottom: 0.3em;
 }
