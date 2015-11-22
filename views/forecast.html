@@ -1,8 +1,20 @@
 <div class="container">
     <h1>Forecast</h1>
 
-    <canvas id="line" class="chart chart-line" chart-data="forecastData"
-            chart-labels="forecastLabels" chart-legend="true" chart-series="series"
-            chart-click="onClick" >
-    </canvas>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Temperature (&deg;F)</h2>
+            <canvas id="line" class="chart chart-line" chart-data="forecastData"
+                    chart-labels="forecastLabels" chart-series="forecastSeries"
+                    chart-click="onClick" chart-colours="forecastColors" >
+            </canvas>
+            <p class="text-center"><span class="high">high</span><span class="low">low</span></p>
+        </div>
+
+        <div class="col-md-6">
+            <h2>Precipitation</h2>
+            <p>Stuff</p>
+        </div>
+    </div>
+
 </div>

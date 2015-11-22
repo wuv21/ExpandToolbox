@@ -6,6 +6,7 @@
 body {
     font-family: "Open Sans", Helvetica, sans-serif;
     font-size: 16px;
+    background-color: #FFF;
 }
 
 h1, h2 {
@@ -41,4 +42,19 @@ h1 {
 
 .current table {
     border-color: red;
+}
+
+p .high,.low {
+    padding: 0.5em;
+    width: 3em;
+}
+
+.high {
+    margin-right: 1em;
+    background-color: rgba(231, 76, 60, 0.5);
+}
+
+.low {
+    margin-left: 1em;
+    background-color: rgba(52, 152, 219, 0.5);
 }

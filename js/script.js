@@ -31,7 +31,7 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
 
         // Personalized date and greeting
         var date = new Date();
-        var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        $scope.daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
         $scope.timeOfDay = 'day';
         var hour = date.getHours();
@@ -43,22 +43,21 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
             $scope.timeOfDay = 'evening';
         }
 
-        $scope.dayOfWeek = daysOfWeek[date.getDay()];
+        $scope.dayOfWeek = $scope.daysOfWeek[date.getDay()];
 
         // Wind radar variables
         $scope.labels = _.fill(Array(36), '');
         $scope.wind = _.fill(Array(36), 0);
 
-        //Testing factory
-        //currentWeatherReport.success(function(response) {
-        //    console.log(response);
-        //});
+        function convertKtoF(n) {
+            return (n * (9/5) - 459.67).toFixed(1)
+        }
 
         // Get weather data based on city
         $http.get("http://api.openweathermap.org/data/2.5/weather?id=5809844&appid=" + openWeatherAPIkey)
             .success(function(response) {
                 $scope.currentWeather = {description: response.weather[0].description.toLowerCase() || "___",
-                                        currentTemp: (response.main.temp * (9/5) - 459.67).toFixed(1) || "___",
+                                        currentTemp: convertKtoF(response.main.temp) || "___",
                                         city: response.name || "___",
                                         country: response.sys.country || "___",
                                         wind: $scope.wind[Math.round(response.wind.deg / 10)] = response.wind.speed,
@@ -68,16 +67,19 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
         });
 
         // Get weather forecast
-        $http.get("http://api.openweathermap.org/data/2.5/forecast?id=5809844&appid=" + openWeatherAPIkey)
+        $http.get("http://api.openweathermap.org/data/2.5/forecast/daily?id=5809844&appid=" + openWeatherAPIkey)
             .success(function(response) {
                 var forecast = response.list;
                 console.log(forecast);
                 $scope.forecastLabels = _.pluck(forecast, 'dt').map(function(x) {
                     var date = new Date(x * 1000);
 
+                    // format: Monday, 11-13
+                    return date.toDateString();
                 });
-                $scope.forecastSeries = ['high'];
-                $scope.forecastData = [_.pluck(forecast, 'main.temp')];
-                console.log($scope.forecastData);
+                $scope.forecastSeries = ['high', 'low'];
+                $scope.forecastData = [_.pluck(forecast, 'temp.max').map(convertKtoF),
+                                        _.pluck(forecast, 'temp.min').map(convertKtoF)];
+                $scope.forecastColors = ['#E74C3C', '#3498DB'];
             });
     });
