@@ -9,6 +9,16 @@ body {
     background-color: #FFF;
 }
 
+.container {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 1.5em;
+    padding-bottom: 0.5em;
+    padding-top: 0;
+    background-color: rgba(256, 256, 256, 0.95);
+    height: 100%
+}
+
 h1, h2 {
     font-weight: 300;
 }
@@ -18,11 +28,13 @@ h1 {
 }
 
 h2 {
-    margin-bottom: 1em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
 }
 
 .back {
     margin: 1em;
+    margin-top: 0;
     position: absolute;
 }
 
@@ -48,10 +60,6 @@ h2 {
 
 .current .row {
     margin-bottom: 1em;
-}
-
-.current table {
-    border-color: red;
 }
 
 p .high,.low {
@@ -81,11 +89,30 @@ p .high,.low {
     padding: 0.75em;
     padding-bottom: 0.4em;
     /*margin: 0.5em;*/
-    border: 5px solid #FFF;
+    border: 5px solid rgba(256, 256, 256, 0.9);;
     background-color: #91AA9D;
 }
 
 .forecast-day i {
     color: #FFF;
     margin-bottom: 0.3em;
+}
+
+.credits {
+    font-size: 10px;
+    color: #AAA;
+}
+
+@media(min-width: 768px) {
+    body {
+        background-color: rgba(52, 152, 219, 0.5);
+        background: linear-gradient(rgba(256,256,256,0.2), rgba(256,256,256,0.2)), url(../img/leaf-lg.jpg);
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: "Open Sans", Helvetica, sans-serif;
+    }
 }
