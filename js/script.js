@@ -30,8 +30,15 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
 
         $urlRouterProvider.otherwise('/welcome');
     })
-    .controller('WelcomeController', function($scope, userInfo) {
+    .controller('WelcomeController', function($http, $scope, userInfo) {
         $scope.user = userInfo;
+
+        $scope.cityOptions;
+        var files = $http.get('json/city_compressed_us.json')
+            .success(function(response) {
+                $scope.cityOptions = response;
+        });
+
     })
     .controller('WeatherController', function($scope, $http, openWeatherAPIkey, userInfo, $state) {
         // Get user inputted info

@@ -2,24 +2,32 @@
 <link rel="stylesheet" href="css/welcome.css">
 
 <div class="container">
-    <h1>Welcome to forecast</h1>
+    <h1>raindrop</h1>
 
     <form class="form" name="searchForm" ng-model="user" novalidate>
-        <label for="nameInp">Name:</label>
+        <label for="nameInp">name:</label>
         <input type="text" class="form-control" placeholder="Please enter your name" id="nameInp" name="nameInp" ng-model="user.name" required/>
         <p class="validation-error" ng-if="searchForm.nameInp.$dirty && searchForm.nameInp.$error.required" id="nameInpAlert">
-            Name is required.
+            name is required.
         </p>
 
-        <label for="locationInp">Location:</label>
+        <label for="locationInp">location:</label>
         <input type="text" class="form-control" placeholder="Please enter your location" id="locationInp" name="locationInp" ng-model="user.location" required/>
         <p class="validation-error" ng-if="searchForm.locationInp.$dirty && searchForm.locationInp.$error.required" id="locationInpAlert">
-            Location is required.
+            location is required.
         </p>
 
+        <select class="form-control" name="locationSel" id="locationSel" ng-model="user.loc2"
+                ng-options="city.name for city in cityOptions | filter:user.location | limitTo: 20 "></select>
         <hr/>
-        <button type="submit" ui-sref="weather.current()" class="btn btn-primary btn-lg" ng-disabled="searchForm.$invalid">View weather</button>
+        <button type="submit" ui-sref="weather.current()" class="btn btn-primary btn-lg" ng-disabled="searchForm.$invalid">jump into the puddle</button>
     </form>
+
+
+    <!--<ul>-->
+        <!--<li ng-repeat="city in cityOptions | limitTo: 20">{{city.name}}, {{city.cc}}, ({{city.id}})</li>-->
+    <!--</ul>-->
+
 
 
     <!--TODO try autocomplete of cities-->
