@@ -1,43 +1,23 @@
-<!--<div class="row">-->
-    <!--<div class="col-md-6">-->
-        <!--<h2>Temperature (&deg;F)</h2>-->
-        <!--<canvas id="line" class="chart chart-line" chart-data="forecastData"-->
-                <!--chart-labels="forecastLabels" chart-series="forecastSeries"-->
-                <!--chart-colours="forecastColors">-->
-        <!--</canvas>-->
-        <!--<p class="text-center"><span class="high">high</span><span class="low">low</span></p>-->
-    <!--</div>-->
-
-    <!--<div class="col-md-6 text-center">-->
-        <!--<h2>7-day forecast</h2>-->
-        <!--<div ng-repeat="day in forecastWeather">-->
-                <!--<div class="forecast-day col-xs-3">-->
-                    <!--<i class="wi wi-fw wi-owm-{{day.id}}"></i>-->
-                    <!--<p>{{day.date | date: 'EEE MMM,dd'}}</p>-->
-                <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-<div class="row">
+<div class="row text-center">
     <h2>7-day forecast</h2>
     <div ng-repeat="day in forecastWeather">
-        <div class="forecast-day col-xs-3">
+        <div class="forecast-day col-xs-3 text-center">
             <i class="wi wi-fw wi-owm-{{day.id}}"></i>
             <p>{{day.date | date: 'EEE, MMM dd'}}</p>
         </div>
     </div>
 </div>
 
-<div>
+<div class="row text-center">
     <h2>Temperature (&deg;F)</h2>
     <canvas id="line" class="chart chart-line" chart-data="forecastData"
             chart-labels="forecastLabels" chart-series="forecastSeries"
             chart-colours="forecastColors">
     </canvas>
-    <p class="text-center"><span class="high">high</span><span class="low">low</span></p>
+    <p class="text-center legend"><span class="high">high</span><span class="low">low</span></p>
 </div>
 
-<div class="row">
+<div class="row text-center">
     <div class="col-md-6">
         <h2>Humidity (%)</h2>
         <canvas id="line" class="chart chart-line" chart-data="forecastHumidity"

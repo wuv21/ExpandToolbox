@@ -1,5 +1,6 @@
 angular.module('WeatherApp', ['ui.router', 'chart.js'])
     .constant('openWeatherAPIkey', 'd59ca5993b82edf6497969631e4cabc4')
+    .constant('userKey', 'user')
     .service('userInfo', function() {
         var user = {};
 
@@ -30,7 +31,7 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
 
         $urlRouterProvider.otherwise('/welcome');
     })
-    .controller('WelcomeController', function($http, $scope, userInfo) {
+    .controller('WelcomeController', function($http, $scope, $state, userInfo, userKey) {
         $scope.user = userInfo;
 
         $scope.cityOptions;
@@ -39,10 +40,16 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
                 $scope.cityOptions = response;
         });
 
+        // Submit button f(x) to see weather. Also saves to localstorage
+        $scope.view = function() {
+            localStorage.setItem(userKey, angular.toJson($scope.user));
+            console.log('click');
+            $state.go('weather.current');
+        };
     })
-    .controller('WeatherController', function($scope, $http, openWeatherAPIkey, userInfo, $state) {
+    .controller('WeatherController', function($scope, $http, openWeatherAPIkey, userInfo, userKey, $state) {
         // Get user inputted info
-        $scope.user = userInfo;
+        $scope.user = angular.fromJson(localStorage.getItem(userKey)) || userInfo;
         if (!$scope.user.name) {
             $state.go('welcome');
         }
@@ -74,29 +81,43 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
         }
 
         // Get weather data based on city
-        $http.get("http://api.openweathermap.org/data/2.5/weather?q=" + $scope.user.location + "&appid=" + openWeatherAPIkey)
-            .then(function(response) {
-                response = response.data;
+        if ($scope.user.loc.id) {
+            $http.get("http://api.openweathermap.org/data/2.5/weather?id=" + $scope.user.loc.id + "&appid=" + openWeatherAPIkey)
+                .then(function(response) {
+                    response = response.data;
 
-                if (response.cod === '404') {
-                    console.log(response.message);
-                } else {
-                    $scope.currentWeather = {description: response.weather[0].description.toLowerCase() || "___",
-                        id: response.weather[0].id,
-                        currentTemp: convertKtoF(response.main.temp) || "___",
-                        city: response.name || "___",
-                        country: response.sys.country || "___",
-                        wind: $scope.wind[Math.round(response.wind.deg / 10)] = response.wind.speed,
-                        sunrise: new Date(response.sys.sunrise * 1000),
-                        sunset: new Date(response.sys.sunset * 1000),
-                        humidity: response.main.humidity,
-                        pressure: response.main.pressure};
-                }
-        });
+                    if (response.cod === '404') {
+                        console.log(response.message);
+                    } else {
+                        $scope.currentWeather = {description: response.weather[0].description.toLowerCase() || "___",
+                            id: response.weather[0].id,
+                            currentTemp: convertKtoF(response.main.temp) || "___",
+                            city: response.name || "___",
+                            country: response.sys.country || "___",
+                            wind: $scope.wind[Math.round(response.wind.deg / 10)] = (response.wind.speed / 1609.34 * 3600).toFixed(2),
+                            sunrise: new Date(response.sys.sunrise * 1000),
+                            sunset: new Date(response.sys.sunset * 1000),
+                            humidity: response.main.humidity,
+                            pressure: response.main.pressure,
+                            cloud: [response.clouds['all'], 100-response.clouds['all']],
+                            rain: response.hasOwnProperty('rain') ? response.rain['3h'] : 0,
+                            snow: response.hasOwnProperty('snow') ? response.snow['3h'] : 0};
+
+                            // Rain/snow data
+                            $scope.rainSnowData = [[$scope.currentWeather.rain, $scope.currentWeather.snow]];
+                            $scope.rainSnowLabels = ['Rain', 'Snow'];
+                    }
+                });
+        }
+
+        // Cloud chart data
+        $scope.cloudLabels = ['cloudy', 'clear'];
+        $scope.cloudColors = ['#F7F7F7', '#CBDDE6'];
 
         // Get weather forecast
         $http.get("http://api.openweathermap.org/data/2.5/forecast/daily?id=5809844&appid=" + openWeatherAPIkey)
             .success(function(response) {
+                // TODO error catching for http get
                 var forecast = response.list;
 
                 // Get dates of days that are in forecast

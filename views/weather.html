@@ -4,12 +4,13 @@
         <h1>Good {{timeOfDay}}, {{user.name}}</h1>
         <p>Happy {{dayOfWeek}}! Currently {{currentWeather.currentTemp}} &deg;F
             and {{currentWeather.description}} in {{currentWeather.city}}, {{currentWeather.country}}.</p>
+    </div>
 
     <ul class="options nav nav-tabs nav-justified">
         <li role="presentation" ui-sref-active="active"><a ui-sref="weather.current()">Current</a></li>
         <li role="presentation" ui-sref-active="active"><a ui-sref="weather.forecast()">Forecast</a></li>
     </ul>
 
+
     <div ui-view></div>
 </div>
-

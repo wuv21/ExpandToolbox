@@ -6,29 +6,24 @@
 
     <form class="form" name="searchForm" ng-model="user" novalidate>
         <label for="nameInp">name:</label>
-        <input type="text" class="form-control" placeholder="Please enter your name" id="nameInp" name="nameInp" ng-model="user.name" required/>
+        <input type="text" class="form-control" placeholder="please enter your name" id="nameInp" name="nameInp" ng-model="user.name" required/>
         <p class="validation-error" ng-if="searchForm.nameInp.$dirty && searchForm.nameInp.$error.required" id="nameInpAlert">
             name is required.
         </p>
 
-        <label for="locationInp">location:</label>
-        <input type="text" class="form-control" placeholder="Please enter your location" id="locationInp" name="locationInp" ng-model="user.location" required/>
+        <label for="locationInp">filter locations:</label>
+        <input type="text" class="form-control" placeholder="please enter your location" id="locationInp" name="locationInp" ng-model="locFilter" required/>
         <p class="validation-error" ng-if="searchForm.locationInp.$dirty && searchForm.locationInp.$error.required" id="locationInpAlert">
-            location is required.
+            please type in a location to filter below selection
         </p>
 
-        <select class="form-control" name="locationSel" id="locationSel" ng-model="user.loc2"
-                ng-options="city.name for city in cityOptions | filter:user.location | limitTo: 20 "></select>
+        <label for="locationSel">select location:</label>
+        <select class="form-control" name="locationSel" id="locationSel" ng-model="user.loc"
+                ng-options="city.name for city in cityOptions | filter:locFilter | limitTo: 20 "></select>
+        <p class="validation-error" ng-if="searchForm.locationSel.$dirty && searchForm.locationInp.$error.required" id="locationSelAlert">
+            please select a location from the list
+        </p>
         <hr/>
-        <button type="submit" ui-sref="weather.current()" class="btn btn-primary btn-lg" ng-disabled="searchForm.$invalid">jump into the puddle</button>
+        <button type="submit" ng-click="view()" class="btn btn-primary btn-lg" ng-disabled="searchForm.$invalid">jump into the puddle</button>
     </form>
-
-
-    <!--<ul>-->
-        <!--<li ng-repeat="city in cityOptions | limitTo: 20">{{city.name}}, {{city.cc}}, ({{city.id}})</li>-->
-    <!--</ul>-->
-
-
-
-    <!--TODO try autocomplete of cities-->
 </div>

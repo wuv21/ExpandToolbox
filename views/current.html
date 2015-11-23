@@ -1,14 +1,5 @@
 <div class="row">
-    <div class="col-md-6 text-center">
-        <h2>Wind radar (meters/sec)</h2>
-        <p class="text-center">North</p>
-        <canvas id="polar-area" class="chart chart-polar-area"
-                chart-data="wind" chart-labels="labels">
-        </canvas>
-    </div>
-
-    <!--TODO let the weather pane go on top on small screens-->
-    <div class="current col-md-6 text-center">
+    <div class="current col-md-6 col-md-push-6 text-center">
         <h2>What's going on outside?</h2>
 
         <div class="row">
@@ -44,5 +35,28 @@
                 <p>{{currentWeather.pressure}} hPa</p>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-6 col-md-pull-6 text-center">
+        <h2>Wind radar (miles per hour)</h2>
+        <p class="text-center">North</p>
+        <canvas id="polar-area" class="chart chart-polar-area"
+                chart-data="wind" chart-labels="labels">
+        </canvas>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 text-center">
+        <h2>Cloud coverage (%)</h2>
+        <canvas id="pie" class="chart chart-pie" chart-data="currentWeather.cloud"
+                chart-labels="cloudLabels" chart-colours="cloudColors"></canvas>
+    </div>
+
+    <div class="col-md-6 text-center">
+        <h2>Rain|Snow meter (mm)</h2>
+        <canvas id="bar" class="chart chart-bar" chart-data="rainSnowData"
+                chart-labels="rainSnowLabels">
+        </canvas>
     </div>
 </div>

@@ -59,6 +59,10 @@ p .high,.low {
     width: 3em;
 }
 
+.legend {
+    margin-top: 0.5em;
+}
+
 .high {
     margin-right: 1em;
     background-color: rgba(231, 76, 60, 0.5);
