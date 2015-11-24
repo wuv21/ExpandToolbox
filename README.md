@@ -12,11 +12,11 @@ Chart.js is a popular library with over 17 thousand stars and 57 contributors. I
 
 ## What is this app?
 This app (called Raindrop) is a weather app that will:
-    1. Ask user for location
-    2. Get weather information based on that location from OpenWeatherMap API
-    3. Load the data into a user-friendly interface.
-    --* Current forecast - including temperature, sunrise, sunset, description, humidity, pressure, cloud coverage, & rain/snow amounts
-    --* Predicted 7-day forecast - including temperature, 
+1. Ask user for location
+2. Get weather information based on that location from OpenWeatherMap API
+3. Load the data into a user-friendly interface.
+--* Current forecast - including temperature, sunrise, sunset, description, humidity, pressure, cloud coverage, & rain/snow amounts
+--* Predicted 7-day forecast - including temperature, 
 
 Since weather data is quite functional in graphs, I used the data visualization libraries to simplify the data and allow the user to quickly get what he or she needs without having to pore through textual or numerical data. This ranges from using a radar graph to see where and how strong the wind is blowing - which is more intuitive way than saying "`NNE at 5mph`"). Chart.js allows interaction with the graphs such as hovering over a point/area to see what that point/area means.
 
