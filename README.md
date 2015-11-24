@@ -11,10 +11,11 @@ Data visualization is a hot topic nowadays and it serves the saying that a pictu
 Chart.js is a popular library with over 17 thousand stars and 57 contributors. It currently has 393 issues open with the latest commit being a week ago. The wrapper for Chart.js for Angular has about 1.2 thousand stars with 22 issues open. Their latest commit was nine hours ago. By using Angular, it does create limitations on what graphs can be created. Using just Chart.js (and by extension, using just D3.js) would offer a greater breadth of options and possibilities in representing data. Lodash, on the other hand, will run well with or without Angular. This library currently has over 12 thousand stars with 0 issues open - with a commit occurring today.
 
 ## What is this app?
-This app (called Raindrop) is a weather app that will:
-1 Ask user for location
-2 Get weather information based on that location from OpenWeatherMap API
-3 Load the data into a user-friendly interface.
+This app (called Raindrop) is a weather app that will include
+
+1. Ask user for location
+2. Get weather information based on that location from OpenWeatherMap API
+3. Load the data into a user-friendly interface.
   * Current forecast - including temperature, sunrise, sunset, description, humidity, pressure, cloud coverage, & rain/snow amounts
   * Predicted 7-day forecast - including temperature, 
 
