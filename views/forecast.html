@@ -1,5 +1,5 @@
 <div class="row text-center">
-    <h2>7-day forecast</h2>
+    <h2>How's the weather for the next 7 days?</h2>
     <div ng-repeat="day in forecastWeather">
         <div class="forecast-day col-xs-3 text-center">
             <i class="wi wi-fw wi-owm-{{day.id}}"></i>
@@ -9,7 +9,7 @@
 </div>
 
 <div class="row text-center">
-    <h2>Temperature (&deg;F)</h2>
+    <h2>What about the temperature forecast (&deg;F)</h2>
     <canvas id="line" class="chart chart-line" chart-data="forecastData"
             chart-labels="forecastLabels" chart-series="forecastSeries"
             chart-colours="forecastColors">
@@ -19,14 +19,14 @@
 
 <div class="row text-center">
     <div class="col-md-6">
-        <h2>Humidity (%)</h2>
+        <h2>How about for humidity? (%)</h2>
         <canvas id="line" class="chart chart-line" chart-data="forecastHumidity"
                 chart-labels="forecastLabelsSlice">
         </canvas>
     </div>
 
     <div class="col-md-6">
-        <h2>Pressure (hPa)</h2>
+        <h2>Or for pressure? (hPa)</h2>
         <canvas id="line" class="chart chart-line" chart-data="forecastPressure"
                 chart-labels="forecastLabelsSlice">
         </canvas>

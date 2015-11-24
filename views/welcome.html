@@ -11,16 +11,16 @@
             name is required.
         </p>
 
-        <label for="locationInp">filter locations:</label>
+        <label for="locationInp">filter locations by city name or id:</label>
         <input type="text" class="form-control" placeholder="please enter your location" id="locationInp" name="locationInp" ng-model="locFilter" required/>
         <p class="validation-error" ng-if="searchForm.locationInp.$dirty && searchForm.locationInp.$error.required" id="locationInpAlert">
             please type in a location to filter below selection
         </p>
 
-        <label for="locationSel">select location:</label>
+        <label for="locationSel">select location (showing top 20 by search):</label>
         <select class="form-control" name="locationSel" id="locationSel" ng-model="user.loc"
-                ng-options="city.name for city in cityOptions | filter:locFilter | limitTo: 20 "></select>
-        <p class="validation-error" ng-if="searchForm.locationSel.$dirty && searchForm.locationInp.$error.required" id="locationSelAlert">
+                ng-options="city.name + ' ' + city.id for city in cityOptions | filter:locFilter | limitTo: 20 "></select>
+        <p class="validation-error" ng-if="searchForm.locationSel.$dirty && searchForm.locationSel.$error.required" id="locationSelAlert">
             please select a location from the list
         </p>
         <hr/>

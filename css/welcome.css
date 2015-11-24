@@ -13,6 +13,7 @@ body {
     background-position-y: 40%;
     background-attachment: fixed;
     font-family: "Open Sans", Helvetica, sans-serif;
+    font-weight: 300;
 }
 
 .container {

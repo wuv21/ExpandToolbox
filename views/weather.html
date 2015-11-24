@@ -4,6 +4,7 @@
         <h1>Good {{timeOfDay}}, {{user.name}}</h1>
         <p>Happy {{dayOfWeek}}! Currently {{currentWeather.currentTemp}} &deg;F
             and {{currentWeather.description}} in {{currentWeather.city}}, {{currentWeather.country}}.</p>
+        <p class="btn btn-default" ng-click="refresh()">Refresh weather</p>
     </div>
 
     <ul class="options nav nav-tabs nav-justified">

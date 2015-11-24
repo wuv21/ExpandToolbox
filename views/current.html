@@ -38,7 +38,7 @@
     </div>
 
     <div class="col-md-6 col-md-pull-6 text-center">
-        <h2>Wind radar (miles per hour)</h2>
+        <h2>Is it windy? (miles per hour)</h2>
         <p class="text-center">North</p>
         <canvas id="polar-area" class="chart chart-polar-area"
                 chart-data="wind" chart-labels="labels">
@@ -48,13 +48,13 @@
 
 <div class="row">
     <div class="col-md-6 text-center">
-        <h2>Cloud coverage (%)</h2>
+        <h2>Is it cloudy? (% coverage)</h2>
         <canvas id="pie" class="chart chart-pie" chart-data="currentWeather.cloud"
                 chart-labels="cloudLabels" chart-colours="cloudColors"></canvas>
     </div>
 
     <div class="col-md-6 text-center">
-        <h2>Rain|Snow meter (mm)</h2>
+        <h2>Is it raining or snowing? (mm)</h2>
         <canvas id="bar" class="chart chart-bar" chart-data="rainSnowData"
                 chart-labels="rainSnowLabels">
         </canvas>
