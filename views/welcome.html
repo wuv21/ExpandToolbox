@@ -5,21 +5,23 @@
     <h1>raindrop</h1>
 
     <form class="form" name="searchForm" ng-model="user" novalidate>
-        <label for="nameInp">name:</label>
+        <label for="nameInp">(1) name:</label>
         <input type="text" class="form-control" placeholder="please enter your name" id="nameInp" name="nameInp" ng-model="user.name" required/>
         <p class="validation-error" ng-if="searchForm.nameInp.$dirty && searchForm.nameInp.$error.required" id="nameInpAlert">
             name is required.
         </p>
 
-        <label for="locationInp">filter locations by city name or id:</label>
+        <label for="locationInp">(2) filter locations by city name or id:</label>
         <input type="text" class="form-control" placeholder="please enter your location" id="locationInp" name="locationInp" ng-model="locFilter" required/>
         <p class="validation-error" ng-if="searchForm.locationInp.$dirty && searchForm.locationInp.$error.required" id="locationInpAlert">
             please type in a location to filter below selection
         </p>
 
-        <label for="locationSel">select location (showing top 20 by search):</label>
+        <label for="locationSel">(3) select location (showing top 20 by search):</label>
         <select class="form-control" name="locationSel" id="locationSel" ng-model="user.loc"
-                ng-options="city.name + ' ' + city.id for city in cityOptions | filter:locFilter | limitTo: 20 "></select>
+                ng-options="city.name + ' (' + city.id + ')' for city in cityOptions | filter:locFilter | limitTo: 20 " required>
+            <option></option>
+        </select>
         <p class="validation-error" ng-if="searchForm.locationSel.$dirty && searchForm.locationSel.$error.required" id="locationSelAlert">
             please select a location from the list
         </p>

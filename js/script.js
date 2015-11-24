@@ -37,6 +37,7 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
     })
     .controller('WelcomeController', function($http, $scope, $state, userInfo, userKey) {
         $scope.user = userInfo;
+        $scope.user.loc = null;
 
         $scope.cityOptions;
         var files = $http.get('json/city_compressed_us.json')
@@ -174,6 +175,11 @@ angular.module('WeatherApp', ['ui.router', 'chart.js'])
                         $scope.forecastLabelsSlice = _.slice($scope.forecastLabels, 0, 4);
                     }
             });
+        };
+
+        // User going back to welcome page when clicked
+        $scope.back = function() {
+            $state.go('welcome');
         };
 
         // Get user inputted info and run page
